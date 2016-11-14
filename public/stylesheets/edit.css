@@ -1,0 +1,13 @@
+#editor {
+  min-height: 500px;
+}
+.class-div-editor-container {
+  width: 60%;
+  margin: 0 auto;
+}
+.wangEditor-container {
+  border: none !important;
+}
+.menu-group {
+  border-right: none !important;
+}
