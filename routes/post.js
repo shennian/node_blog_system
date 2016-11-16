@@ -43,9 +43,13 @@ router.post('/publish', function(req, res, next) {
   });
 }, function(req, res, next) {
   // 根据数据处理的结果，返回相应的结果
+  var id = req.body.id;
   if (req._published == true) {
     /* 可以清真一点 */
-    res.redirect('/post/' + id);
+    res.json({
+      data: '/post/get?id=' + id,
+      msg: 'success',
+    });
   } else {
     res.json({data: '好像遇到了一些问题！~'})
   }
@@ -54,7 +58,7 @@ router.post('/publish', function(req, res, next) {
 
 router.get('/get', function(req, res, next) {
   // 这里是如果数据没有找到，直接返回，第二个函数会短一些。
-  var id = req.body.id;
+  var id = req.query.id;
   Post.findById(id).then(function(post) {
     if (post == null) {
       req._existed = false;

@@ -4,69 +4,19 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/edit.css')
     link(rel='stylesheet', href='/stylesheets/wangEditor.css')
-    script(type="text/javascript" src="/javascripts/lib/jquery-1.10.2.min.js")
-    script(type="text/javascript" src="/javascripts/wangEditor.js")
+
   body(data-post-id='#{postId}')
     div(class='class-div-editor-container')
       input(id='title', placeholder='标题')
     div(class='class-div-editor-container')
       div(id="editor")
-      script.
-        var editor = new wangEditor('editor');
-        editor.onchange = function () {
-          // 编辑区域内容变化时，实时打印出当前内容
-          console.log(this.$txt.html());
-        };
-        editor.config.menus = [
-        "bold",
-        "underline",
-        "italic",
-        "strikethrough",
-        "forecolor" ,
-        "bgcolor",
-
-        "eraser" ,
-        "fontsize",
-        "orderlist" ,
-        "unorderlist" ,
-        "quote",
-        "link" ,
-        "text" ,
-        "submit" ,
-        "cancel" ,
-        "unlink" ,
-        "table" ,
-        "img" ,
-        "insertcode" ,
-        "undo" ,
-        "redo" ,
-        "fullscreen" ,
-        "openLink"
-        ];
-        editor.create();
-      div(class='class-div-editor-container')
+      div(class='class-div-button-container')
         button(id='save') 保存
         button(id='publish') 发布
-      script.
-        function autoSave() {
-          var title = $('#title').val();
-          var post = editor.$txt.html();
-          var id = $('body').data('post-id')
-          var postData = {
-            id: id,
-            title: title,
-            post: post,
-          }
-          $.ajax({
-            url: '/post/edit',
-            method: 'post',
-            data: postData,
-            success: function(data) {
-              console.log(data);
-            },
-            error: function(err) {
-              console.log(err);
-            }
-          });
-        }
-        setInterval(autoSave, 2000);
+    div(class='class-div-alter-container')
+      p 保存成功...
+
+
+    script(type="text/javascript" src="/javascripts/lib/jquery-1.10.2.min.js")
+    script(type="text/javascript" src="/javascripts/wangEditor.js")
+    script(type="text/javascript" src="/javascripts/edit.js")

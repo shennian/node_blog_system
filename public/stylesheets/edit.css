@@ -3,11 +3,47 @@
 }
 .class-div-editor-container {
   width: 60%;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 .wangEditor-container {
   border: none !important;
 }
 .menu-group {
   border-right: none !important;
+}
+
+.class-div-editor-container input {
+  width: 100%;
+  height: 60px;
+  font-size: 28px;
+  padding: 0 10px;
+  outline: none;
+  border: none;
+  border-bottom: solid 1px #ccc;
+}
+
+.wangEditor-menu-container {
+  border: none !important;
+}
+
+.class-div-button-container {
+  position: fixed;
+  height: 40px;
+  width: 100px;
+  left: 20px;
+  top: 30px;
+}
+
+.class-div-button-container button {
+  height: 100%;
+  width: 50%;
+}
+
+.class-div-alter-container {
+  position: fixed;
+  top: 30px;
+  right: 20px;
+  /*display: none;*/
+  color: #666;
+  font-size: 12px;
 }
