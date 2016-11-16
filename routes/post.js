@@ -119,12 +119,12 @@ router.post('/private/true', function(req, res, next) {
   Post.findById(id).then(function (post) {
     if (post == null) {
       req._existed = false;
-} else {
-  req._existed = true;
-  req._post = post;
-}
-next();
-});
+  } else {
+    req._existed = true;
+    req._post = post;
+  }
+  next();
+  });
 }, function(req, res, next) {
   if (req._existed == true) {
     var post = req._post;
