@@ -29,7 +29,7 @@ var Comment = db.define('comment', {
   private: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
-    defaultValue: true
+    defaultValue: false,
   },
   post_id: {
     type: Sequelize.STRING,
@@ -37,8 +37,21 @@ var Comment = db.define('comment', {
   }
 }, {
   freezeTableName: true, // Model tableName will be the same as the model name
-  instanceMethods: {},
-  classMethods: {},
+  instanceMethods: {
+    delete: function() {
+      this.private = true;
+      this.save();
+    }
+  },
+  classMethods: {
+    findById: function(id) {
+      return Comment.find({
+        where: {
+          id: id
+        }
+      });
+    },
+  },
 });
 
 module.exports = Comment;

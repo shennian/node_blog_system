@@ -49,4 +49,33 @@ router.get('/all', function(req, res, next) {
     res.json({data: err});
   });
 });
+
+router.get('/delete', function(req, res, next) {
+  var id = req.query.id;
+  Comment.findById(id).then(function(comment) {
+    if (comment == null) {
+      req._existed = false;
+      next();
+    } else {
+      req._existed = true;
+      req._comment = comment;
+      next();
+    }
+  });
+}, function(req, res) {
+  if (req._existed == true) {
+    var comment = req._comment;
+    comment.delete();
+    res.json({data: '删除评论成功'});
+  } else {
+    res.json({data: '评论不存在'});
+  }
+});
+
+router.get('/all/master', function(req, res) {
+  Comment.findAll(function (comments) {
+    res.json({data: comments});
+  })
+  
+});
 module.exports = router;

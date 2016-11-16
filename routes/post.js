@@ -28,9 +28,9 @@ router.post('/edit', function(req, res, next) {
 });
 
 
-router.post('/:id/publish', function(req, res, next) {
+router.post('/publish', function(req, res, next) {
   // 数据处理
-  var id = req.params.id;
+  var id = req.body.id;
   Post.findById(id).then(function(post) {
     if (post == null) {
       req._published = false;
@@ -52,9 +52,9 @@ router.post('/:id/publish', function(req, res, next) {
 });
 
 
-router.get('/:id/get', function(req, res, next) {
+router.get('/get', function(req, res, next) {
   // 这里是如果数据没有找到，直接返回，第二个函数会短一些。
-  var id = req.params.id;
+  var id = req.body.id;
   Post.findById(id).then(function(post) {
     if (post == null) {
       req._existed = false;
