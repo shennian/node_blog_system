@@ -13,8 +13,8 @@ router.get('/', function(req, res, next) {
   console.log(req.connection.remoteAddress);
   console.log(req.connection._remoteAddress);
   cache.set('1', '2');
-  //res.render('index', { title: 'post' });
-  res.json({data: 'ues'});
+  res.render('index', {num: 60, sec: 2});
+  //res.json({data: 'ues'});
 });
 
 router.get('/test', [ipManage.apiLimit], function(req, res, next) {

@@ -24,6 +24,9 @@ block content
       method: 'get',
       success: function(data) {
         $('#content').html(data.data);
+        $(document).ready(function () {
+          $(".bar").css('left', '0%');
+        });
       },
       error: function(data) {
         console.log(data);
