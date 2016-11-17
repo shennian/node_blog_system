@@ -5,6 +5,7 @@
     + url: post/create/master
 + 编辑博客 ✔
     + url: post/edit/master
++ 保存博客 ✔
 + 发布博客 ✔
     + url: post/publish/master
 + 设为私有博客 ✔
@@ -33,3 +34,6 @@
 + 最近 n 天博客页面浏览数
 + 最近 n 天博客独立ip浏览数
 + 最近 n 天博客点赞数
+
++ 管理员登录 ✔
++ 管理员修改密码 ✔

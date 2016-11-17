@@ -2,21 +2,77 @@ var express = require('express');
 var router = express.Router();
 var Post = require('../models/post.js');
 var iconv = require('iconv-lite');
+var ip = require('../utils/ip_manage.js');
+var cookie = require('../utils/cookie.js');
 
+
+router.get('/create/master', [cookie.get], function(req, res, next) {
+  Post.create().then(function(post) {
+    req._post = post;
+    next();
+  });
+}, function(req, res) {
+  var post = req._post;
+  res.render('edit', {
+    postId: post.id
+  });
+});
+
+router.get('/edit', function(req, res, next) {
+  var id = req.query.id;
+  Post.findById(id).then(function(post) {
+    req._post = post;
+    next();
+  });
+}, function(req, res) {
+  var post = req._post;
+  if (post == null) {
+    res.json({
+      data: 'error'
+    });
+  } else {
+    var data = {
+      postId: post.id,
+      status: true,
+    }
+    res.render('edit', data);
+  }
+});
 
 router.get('/create', function(req, res, next) {
   Post.create().then(function(post) {
     req._post = post;
     next();
   });
-}, function(req, res, nex) {
+}, function(req, res) {
   var post = req._post;
-  console.log(post);
-  res.render('edit', { postId: post.id });
+  res.render('edit', {
+    postId: post.id
+  });
 });
 
+router.get('/edit', function(req, res, next) {
+  var id = req.query.id;
+  Post.findById(id).then(function(post) {
+    req._post = post;
+    next();
+  });
+}, function(req, res) {
+  var post = req._post;
+  if (post == null) {
+    res.json({
+      data: 'error'
+    });
+  } else {
+    var data = {
+      postId: post.id,
+      status: true,
+    }
+    res.render('edit', data);
+  }
+});
 
-router.post('/edit', function(req, res, next) {
+router.post('/save', function(req, res, next) {
   var id = req.body.id;
   var title = req.body.title;
   var html = req.body.post;
@@ -72,6 +128,7 @@ router.get('/get', function(req, res, next) {
 }, function(req, res, next) {
   if (req._existed == true) {
     var post = req._post;
+    post.incViews();
     res.render('post',{info: post.basicInfo()});
   } else {
     res.json({data: '博客消失了！~'});
@@ -82,13 +139,29 @@ router.get('/get', function(req, res, next) {
 router.get('/:id/post-content/get', function(req, res, next) {
   var id = req.params.id;
   Post.findById(id).then(function(post) {
-    post.incViews()
     return post.readPost();
   }).then(function(data) {
     var decoded_data = iconv.decode(data, 'utf-8');
     res.json({data: decoded_data});
   }, function() {
     res.json({data: '获取失败'})
+  });
+});
+
+router.get('/title/get', function(req, res) {
+  var id = req.query.id;
+  Post.findById(id).then(function(post) {
+    if (post == null) {
+      res.json({
+        msg: 'error'
+      })
+    } else {
+      var title = post.title;
+      res.json({
+        msg: 'success',
+        data: title,
+      });
+    }
   });
 });
 
@@ -157,25 +230,23 @@ router.post('/private/false', function(req, res, next) {
   }
 });
 
-
-router.post('/likes', function(req, res, next) {
-  var id = req.query.id;
-  Post.findById(id).then(function (post) {
-    if (post == null) {
-      req._existed = false;
-    } else {
-      req._existed = true;
-      req._post = post;
-    }
+router.post('/likes', [ip.apiLimit], function(req, res, next) {
+  var id = req.body.id;
+  Post.findById(id).then(function(post) {
+    req._post = post;
     next();
   });
-}, function(req, res, next) {
-  if (req._existed == true) {
-    var post = req._post;
-    post.incLikes();
-    res.json({data: "博客点赞成功"});
+}, function(req, res) {
+  var post = req._post;
+  if (post == null) {
+    res.json({
+      data: "error",
+    });
   } else {
-    res.json({data: "博客获取失败"});
+    post.incLikes();
+    res.json({
+      data: "success",
+    });
   }
 });
 

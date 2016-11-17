@@ -1,12 +1,13 @@
 extends layout
-
 block content
-  div(class='bar')
+  
+  div(class='bar' id='#')
   div(class='div-main-container')
     div(class='item')
       h1(data-id = "#{info.id}" id="post-id") #{info.title}
     div(class='item')
       已有 #{info.views} 次阅读，#{info.likes} 次点赞
+      i(class="fa fa-heart-o like" aria-hidden="true")
       div(class='div-close')
     div(class='div-post-content' id='content')
     div(class='item' id='comment')
@@ -17,79 +18,11 @@ block content
       input(type='text' name='email' value='' placeholder='邮箱')
       textarea(rows='4' cols='50' placeholder='评论...')
       button(class='ok-button' type='button' name='button') 确定
-  script.
-    var post_id = $('#post-id').data('id');
-    $.ajax({
-      url: '/post/' + post_id + '/post-content/get',
-      method: 'get',
-      success: function(data) {
-        $('#content').html(data.data);
-        $(document).ready(function () {
-          $(".bar").css('left', '0%');
-        });
-      },
-      error: function(data) {
-        console.log(data);
-      }
-    });
-    $.ajax({
-      url: '/comment/all',
-      method: 'get',
-      data: {
-        post_id: post_id
-      },
-      success: function(data) {
-        var data = data.data;
-        data.reverse()
-        for (var v of data) {
-          var name = v.name
-          var message = v.message
-          var t = `<div class="item">
-                    ${name}: ${message}
-                  </div>`
-          $('#comment').after(t)
-        }
-      },
-      error: function(data) {
-        console.log(data);
-      }
-    });
-    $('#comment').on('click', function() {
-      $('.div-comment').css('display', 'flex')
-    });
-    $('.div-close').on('click', function() {
-      $('.div-comment').css('display', 'none')
-    });
-    $('.ok-button').on('click', function() {
-      var post_id = $('#post-id').data('id')
-      var name = $("input[name='name']").val()
-      var email = $("input[name='email']").val()
-      var message = $("textarea").val()
-      var t = `<div class="item">
-                ${name}: ${message}
-              </div>`
-      $("#comment~ .item:last-child").remove()
-      $('#comment').after(t)
-      var data = {
-        post_id: post_id,
-        name: name,
-        email: email,
-        message: message,
-      }
-      $.ajax({
-        url: '/comment/create',
-        data: data,
-        method: 'post',
-        success: function(data) {
-          console.log(data);
 
-        },
-        error: function(err) {
-          console.log(err);
-        }
-      });
-      var name = $("input[name='name']").val('')
-      var email = $("input[name='email']").val('')
-      var message = $("textarea").val('')
-      $('.div-comment').css('display', 'none')
-    });
+  a(href='#' class='div-back-top')
+    i(class="fa fa-chevron-up" aria-hidden="true")
+  a(href='/subscribe' class='div-rss')
+    i(class="fa fa-rss" aria-hidden="true")
+  script(type="text/javascript" src="/javascripts/post.js")
+
+

@@ -48,8 +48,9 @@ $.ajax({
 console.log("r324gfdgf324")
 $(document).ready(function() {
   console.log("r324324")
-  $('.div-main-container').on('click', '.item', function() {
+  $('.div-main-container').on('click', '.item:not(:first)', function() {
     var id = $(this).data('id');
+
     console.log($(this))
     window.open(`/post/get?id=${id}`);
     console.log("2333")

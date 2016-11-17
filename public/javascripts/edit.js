@@ -42,7 +42,7 @@ function autoSave() {
     post: post,
   }
   $.ajax({
-    url: '/post/edit',
+    url: '/post/save',
     method: 'post',
     data: postData,
     success: function(data) {
