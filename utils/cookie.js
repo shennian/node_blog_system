@@ -1,5 +1,5 @@
 var setCookie = function(req, res, next) {
-  let options = {
+  var options = {
     maxAge: 1000 * 60, // would expire after 24 hours
     httpOnly: true, // The cookie only accessible by the web server
     signed: true // Indicates if the cookie should be signed
