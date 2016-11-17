@@ -56,7 +56,7 @@ router.post('/master/login', function(req, res, next) {
   var password = req.body.password;
   console.log(password, admin.password);
   if (admin.password == password) {
-    let options = {
+    var options = {
       maxAge: 1000 * 60, // would expire after 24 hours
       httpOnly: true, // The cookie only accessible by the web server
       signed: true // Indicates if the cookie should be signed
