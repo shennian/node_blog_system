@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd0d4394-ccc9-4cb2-b6e3-fe1743ee17f9" name="Default" comment="f32rwefs">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/index.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sqlite.db" afterPath="$PROJECT_DIR$/sqlite.db" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index_phone.html" afterPath="$PROJECT_DIR$/public/index_phone.html" />
     </list>
     <ignored path="node_blog.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -95,12 +94,12 @@
       <file leaf-file-name="index_phone.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/index_phone.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.72335327">
-              <caret line="104" column="42" selection-start-line="104" selection-start-column="42" selection-end-line="104" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.6479042">
+              <caret line="102" column="38" selection-start-line="102" selection-start-column="38" selection-end-line="102" selection-end-column="38" />
               <folding>
-                <marker date="1479477552630" expanded="true" signature="2342:2355" placeholder="..." />
-                <marker date="1479477552630" expanded="true" signature="2342:2372" placeholder="..." />
-                <marker date="1479477552630" expanded="true" signature="2342:2515" placeholder="..." />
+                <marker date="1479478720158" expanded="true" signature="2342:2355" placeholder="..." />
+                <marker date="1479478720158" expanded="true" signature="2342:2372" placeholder="..." />
+                <marker date="1479478720158" expanded="true" signature="2342:2515" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -866,12 +865,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/index_phone.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.72335327">
-          <caret line="104" column="42" selection-start-line="104" selection-start-column="42" selection-end-line="104" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.6479042">
+          <caret line="102" column="38" selection-start-line="102" selection-start-column="38" selection-end-line="102" selection-end-column="38" />
           <folding>
-            <marker date="1479477552630" expanded="true" signature="2342:2355" placeholder="..." />
-            <marker date="1479477552630" expanded="true" signature="2342:2372" placeholder="..." />
-            <marker date="1479477552630" expanded="true" signature="2342:2515" placeholder="..." />
+            <marker date="1479478720158" expanded="true" signature="2342:2355" placeholder="..." />
+            <marker date="1479478720158" expanded="true" signature="2342:2372" placeholder="..." />
+            <marker date="1479478720158" expanded="true" signature="2342:2515" placeholder="..." />
           </folding>
         </state>
       </provider>
