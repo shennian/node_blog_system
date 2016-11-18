@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#ccc">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#ccc">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ccc">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Title</title>
+    <style>
+        .div-main-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .div-blog-header {
+            width: 100%;
+            height: 120px;
+            background-color: #ccc;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .div-blog-logo {
+            height: 80px;
+            width: 80px;
+            background-color: #bbb;
+            margin: 20px auto;
+            border-radius: 40px;
+        }
+        .div-blog-item {
+            height: 80px;
+            border-bottom: solid 1px #bbb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        .div-post-container {
+            margin-top: 120px;
+        }
+        .div-blog-item span {
+            font-size: 20px;
+            color: #aaa;
+        }
+    </style>
+    <link rel='stylesheet', href='./font-awesome-4.7.0/css/font-awesome.min.css'>
+</head>
+<body>
+    <div class="div-main-container">
+        <div class="div-post-container">
+
+        </div>
+
+
+
+
+        <div class="div-blog-header">
+            <div class="div-blog-logo">
+
+            </div>
+        </div>
+
+    </div>
+    <script src="javascripts/lib/jquery-1.10.2.min.js">
+
+    </script>
+    <script src="javascripts/api.js">
+
+    </script>
+    <script>
+        var renderPosts = function(data) {
+            var posts = data.data;
+            for (var i = 0; i < posts.length; i++) {
+                var post = posts[i];
+                var id = post.id;
+                var time = post.created_time;
+                time = time.slice(0, time.indexOf('T'));
+                var title = post.title;
+                var t = ` <div class="div-blog-item" data-id="${id}">
+                            <span>${title}</span>
+                            <span><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+                          </div>`;
+                $('.div-post-container').append(t);
+            }
+        };
+
+        api({
+            url: '/post/all',
+            method: 'get',
+            success: renderPosts,
+        });
+        $('.div-post-container').on('mouseover', '.div-blog-item', function() {
+            console.log(1222222)
+            var heart = $(this).find('.fa');
+            heart.addClass('fa-heart');
+            heart.removeClass('fa-heart-o');
+            heart.css('color', 'red');
+            setTimeout(function() {
+                heart.removeClass('fa-heart');
+                heart.addClass('fa-heart-o');
+                heart.css('color', '');
+            }, 1000)
+
+        });
+    </script>
+
+</body>
+</html>

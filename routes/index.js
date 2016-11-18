@@ -4,11 +4,12 @@ var Post = require('../models/post.js');
 var cache = require('../cache/mini.js');
 var ipManage = require('../utils/ip_manage.js');
 var cookie = require('../utils/cookie.js');
+var ua = require('../utils/user_agent.js');
 var Admin = require('../models/admin.js');
 
 cache.new();
 /* GET home page. */
-router.get('/', function(req, res) {
+router.get('/', [ua.mobile], function(req, res) {
   res.render('index');
 });
 
