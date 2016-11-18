@@ -8,15 +8,12 @@ var Admin = require('../models/admin.js');
 
 cache.new();
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
-  console.log(ip);
-  console.log(req.header('x-forwarded-for'));
-  console.log(req.connection.remoteAddress);
-  console.log(req.connection._remoteAddress);
-  cache.set('1', '2');
-  res.render('index', {num: 60, sec: 2});
-  //res.json({data: 'ues'});
+router.get('/', function(req, res) {
+  res.render('index');
+});
+
+router.get('/master', [cookie.get], function(req, res) {
+  res.render('index_master');
 });
 
 router.get('/test', [ipManage.apiLimit], function(req, res, next) {
@@ -57,7 +54,7 @@ router.post('/master/login', function(req, res, next) {
   console.log(password, admin.password);
   if (admin.password == password) {
     var options = {
-      maxAge: 1000 * 60, // would expire after 24 hours
+      maxAge: 1000 * 60 * 60, // would expire after 24 hours
       httpOnly: true, // The cookie only accessible by the web server
       signed: true // Indicates if the cookie should be signed
     }

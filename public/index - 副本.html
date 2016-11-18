@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#4285f4">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#4285f4">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#4285f4">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        .div-main-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .div-blog-header {
+            width: 100%;
+            height: 120px;
+            background-color: #ccc;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .div-blog-logo {
+            height: 80px;
+            width: 80px;
+            background-color: #bbb;
+            margin: 20px auto;
+            border-radius: 40px;
+        }
+        .div-blog-item {
+            width: 100%;
+            height: 80px;
+            /*border-bottom: solid 1px #bbb;*/
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .div-blog-item:first-of-type {
+            margin-top: 120px;
+        }
+        .div-blog-item span {
+            font-size: 20px;
+            color: #aaa;
+        }
+        .div-blog-title {
+            position: fixed;
+            width: 80%;
+            height: 100px;
+            top: 20px;
+            left: 20px;
+            display: inline-block;
+        }
+        .div-blog-likes {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            right: 20px;
+            top: 50px;
+            display: inline-block;
+        }
+        .div-blog-pen {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            right: 20px;
+            top: 80%;
+        }
+        .div-post-container {
+            margin-top: 120px;
+            position: relative;
+            padding: 20px;
+        }
+        .div-post-data {
+            height: 40px;
+            display: flex;
+            align-items: center;
+
+            /*flex-direction: column;*/
+            /*justify-content: center;*/
+        }
+        .div-post-data span {
+            font-size: 15px;
+            color: black;
+        }
+        .div-post-data span:last-of-type {
+            margin-left: 20px;
+        }
+    </style>
+    <link rel='stylesheet', href='./font-awesome-4.7.0/css/font-awesome.min.css'>
+</head>
+<body>
+    <div class="div-main-container">
+
+
+        <div class="div-post-container">
+            <div class="div-post-data">
+                <span id="views"><i class="fa fa-eye" aria-hidden="true"></i> 11</span>
+                <span id="likes"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> <num>21</num></span>
+            </div>
+            <div class="div-post-content">
+                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>                <p>fdsfkdjs</p>
+                <h1>fsodfjidsjfdij</h1>
+            </div>
+            <div class="div-post-time">
+                <span>11010101</span>
+            </div>
+            <div class="div-go-back">
+                <span>回到首页</span>
+            </div>
+        </div>
+
+
+
+
+        <div class="div-blog-header">
+            <div class="div-blog-title">
+                <h1>fffdsfd</h1>
+            </div>
+            <div class="div-blog-likes">
+                <i class="fa fa-heart-o" aria-hidden="true"></i>
+            </div>
+
+        </div>
+        <div class="div-blog-pen">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -18,7 +18,7 @@ router.get('/create/master', [cookie.get], function(req, res, next) {
   });
 });
 
-router.get('/edit', function(req, res, next) {
+router.get('/edit', [cookie.get], function(req, res, next) {
   var id = req.query.id;
   Post.findById(id).then(function(post) {
     req._post = post;
