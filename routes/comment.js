@@ -36,12 +36,12 @@ router.post('/create', function(req, res, next) {
 });
 
 router.get('/all', function(req, res, next) {
-  var post_id = req.query.post_id;
-  Post.findById(post_id).then(function(post) {
+  var id = req.query.id;
+  Post.findById(id).then(function(post) {
     req._post = post;
     next();
   });
-}, function(req, res, next) {
+}, function(req, res) {
   var post = req._post;
   post.getComments({limit: 6, order: '"created_time" DESC' }).then(function(comments) {
     res.json({data: comments});

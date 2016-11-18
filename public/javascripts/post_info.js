@@ -1,46 +1,31 @@
 var id = $('body').data('post-id')
 
-$.ajax({
+api({
   url: '/post/title/get',
   method: 'get',
   data: {
     id: id,
   },
-  success: function(data) {
-    if (data.msg == 'success') {
-      renderTitle(data.data);
-    }
-  }
-});
+  success: renderTitle
+})
 
-$.ajax({
-  url: '/post/title/get',
-  method: 'get',
-  data: {
-    id: id,
-  },
-  success: function(data) {
-    if (data.msg == 'success') {
-      renderTitle(data.data);
-    }
+function renderTitle(data) {
+  if (data.msg == 'success') {
+    var title = data.data;
+    $('#title').val(title);
   }
-});
-
-function renderTitle(title) {
-  $('#title').val(title);
 }
 
-$.ajax({
-  url: '/post/' + id + '/post-content/get',
+api({
+  url: '/post/content/get',
   method: 'get',
-  success: function(data) {
-    renderContent(data.data);
+  data: {
+    id: id,
   },
-  error: function(data) {
-    console.log(data);
-  }
-});
+  success: renderContent
+})
 
-function renderContent(post) {
+function renderContent(data) {
+  var post = data.data
   editor.$txt.append(post);
 }

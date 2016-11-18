@@ -31,6 +31,12 @@ editor.config.menus = [
 ];
 editor.create();
 
+var renderAlter = function(data) {
+  $('.class-div-alter-container').show();
+  setTimeout(function () {
+    $('.class-div-alter-container').hide();
+  }, 500);
+}
 
 function autoSave() {
   var title = $('#title').val();
@@ -41,20 +47,12 @@ function autoSave() {
     title: title,
     post: post,
   }
-  $.ajax({
+  api({
     url: '/post/save',
     method: 'post',
     data: postData,
-    success: function(data) {
-      $('.class-div-alter-container').show();
-      setTimeout(function () {
-        $('.class-div-alter-container').hide();
-      }, 500);
-    },
-    error: function(err) {
-      console.log(err);
-    }
-  });
+    success: renderAlter,
+  })
 }
 
 function publish() {

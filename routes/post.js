@@ -136,8 +136,8 @@ router.get('/get', function(req, res, next) {
 });
 
 
-router.get('/:id/post-content/get', function(req, res, next) {
-  var id = req.params.id;
+router.get('/content/get', function(req, res, next) {
+  var id = req.query.id;
   Post.findById(id).then(function(post) {
     return post.readPost();
   }).then(function(data) {
