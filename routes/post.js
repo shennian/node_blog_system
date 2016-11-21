@@ -39,7 +39,7 @@ router.get('/edit', [cookie.get], function(req, res, next) {
   }
 });
 
-router.get('/create', function(req, res, next) {
+router.get('/create/master', [cookie.get], function(req, res, next) {
   Post.create().then(function(post) {
     req._post = post;
     next();
@@ -51,7 +51,7 @@ router.get('/create', function(req, res, next) {
   });
 });
 
-router.get('/edit', function(req, res, next) {
+router.get('/edit/master', [cookie.get], function(req, res, next) {
   var id = req.query.id;
   Post.findById(id).then(function(post) {
     req._post = post;
@@ -72,7 +72,7 @@ router.get('/edit', function(req, res, next) {
   }
 });
 
-router.post('/save', function(req, res, next) {
+router.post('/save/master', [cookie.get], function(req, res, next) {
   var id = req.body.id;
   var title = req.body.title;
   var html = req.body.post;
@@ -84,7 +84,7 @@ router.post('/save', function(req, res, next) {
 });
 
 
-router.post('/publish', function(req, res, next) {
+router.post('/publish/master', function(req, res, next) {
   // 数据处理
   var id = req.body.id;
   Post.findById(id).then(function(post) {

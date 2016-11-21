@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Eamil = require('../models/email.js');
 var sendEamil = require('../utils/sendMails.js');
-
+var cookie = require('../utils/cookie.js');
 
 router.post('/create', function(req, res, next) {
   var address = req.body.address;
@@ -35,19 +35,19 @@ router.post('/create', function(req, res, next) {
   }
 });
 
-router.get('/all', function(req, res) {
+router.get('/all/master', [cookie.get], function(req, res) {
   Eamil.findAll().then(function(emailList) {
     res.json({data: emailList});
   });
 });
 
-router.get('/unsent/all', function(req, res) {
+router.get('/unsent/all', [cookie.get], function(req, res) {
   Eamil.findAllSendError().then(function(emailList) {
     res.json({data: emailList});
   });
 });
 
-router.get('/delete', function(req, res) {
+router.get('/delete/master', [cookie.get], function(req, res) {
   var address = req.query.address;
   Eamil.deleteByAddress(address).then(function() {
     res.json({data: '删除成功'});
@@ -56,7 +56,7 @@ router.get('/delete', function(req, res) {
   });
 });
 
-router.post('/send/all', function(req, res) {
+router.post('/send/all', [cookie.get], function(req, res) {
   var url = req.body.url;
   var title = req.body.title;
   Eamil.findAll().then(function(emails) {
@@ -74,7 +74,7 @@ router.post('/send/all', function(req, res) {
   res.json({data: '正在发送'})
 });
 
-router.post('/send', function(req, res) {
+router.post('/send', [cookie.get], function(req, res) {
   var address = req.body.address;
   var url = req.body.url;
   var title = req.body.title;

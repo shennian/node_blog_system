@@ -48,7 +48,7 @@ function autoSave() {
     post: post,
   }
   api({
-    url: '/post/save',
+    url: '/post/save/master',
     method: 'post',
     data: postData,
     success: renderAlter,
@@ -65,7 +65,7 @@ function publish() {
     post: post,
   }
   $.ajax({
-    url: '/post/publish',
+    url: '/post/publish/master',
     method: 'post',
     data: postData,
     success: function(data) {

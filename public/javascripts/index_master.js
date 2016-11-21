@@ -26,7 +26,7 @@ var renderPosts = function(data) {
               <div class="item" data-id="${id}">
                   <span>${title}</span>
                   <span>
-                    <a href="/post/edit?id=${id}">编辑</a>
+                    <a href="/post/edit/master?id=${id}">编辑</a>
                     ${private(post.private, id)}
                     ${publish(post.published, id)}
                   </span>
@@ -54,6 +54,3 @@ $(document).ready(function() {
     window.open(`/post/get?id=${id}`);
   });
 });
-
-
-
