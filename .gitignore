@@ -3,3 +3,4 @@
 sql*
 npm*
 test.js
+/post/*

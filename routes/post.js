@@ -84,7 +84,7 @@ router.post('/save/master', [cookie.get], function(req, res, next) {
 });
 
 
-router.post('/publish/master', function(req, res, next) {
+router.post('/publish/master', [cookie.get], function(req, res, next) {
   // 数据处理
   var id = req.body.id;
   Post.findById(id).then(function(post) {
@@ -187,8 +187,8 @@ router.get('/all', function(req, res, next) {
 });
 
 
-router.post('/private/true', function(req, res, next) {
-  var id = req.query.id;
+router.post('/private/true/master', [cookie.get], function(req, res, next) {
+  var id = req.body.id;
   Post.findById(id).then(function (post) {
     if (post == null) {
       req._existed = false;
@@ -209,8 +209,8 @@ router.post('/private/true', function(req, res, next) {
 });
 
 
-router.post('/private/false', function(req, res, next) {
-  var id = req.query.id;
+router.post('/private/false/master', [cookie.get], function(req, res, next) {
+  var id = req.body.id;
   Post.findById(id).then(function (post) {
     if (post == null) {
       req._existed = false;
