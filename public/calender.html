@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <style>
+      html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+      }
+      .class-div-main-container {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        width: 100%;
+      }
+      .class-div-left-side, .class-div-right-side {
+        height: 100%;
+        padding: 0 10px;
+      }
+      .class-div-left-side {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        border-right: solid 1px #ccc;
+      }
+      .class-div-right-side {
+        width: 60%;
+      }
+      .class-div-header-title {
+        width: 100%;
+        height: 50px;
+        font-size: 28px;
+        line-height: 50px;
+      }
+      .class-div-header-search {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        margin-top: 10px;
+      }
+      .class-div-header-search input {
+        width: 80%;
+        outline: none;
+        border: none;
+        border-top: solid 1px #ccc;
+        border-left: solid 1px #ccc;
+        border-bottom: solid 1px #ccc;
+        padding: 10px;
+        font-size: 28px;
+      }
+      .class-div-search-ok-button {
+        width: 20%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ccc;
+      }
+      .class-div-search-ok-button:hover {
+        background-color: dodgerblue;
+      }
+      .class-div-post-item {
+        width: 100%;
+        height: 50px;
+        font-size: 26px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom: solid 1px #ccc;
+      }
+      .class-div-post-item:hover {
+        background-color: dodgerblue;
+      }
+      .class-div-post-item-paging {
+        position: fixed;
+        bottom: 0px;
+        width: calc(40% - 20px);
+        height: 50px;
+        font-size: 26px;
+        border-top: solid 1px #ccc;
+        background-color: white;
+      }
+      .class-div-comment-item-paging {
+        position: fixed;
+        bottom: 0px;
+        right: 0px;
+        width: calc(60% - 15px);
+        height: 50px;
+        font-size: 26px;
+        border-top: solid 1px #ccc;
+        background-color: white;
+      }
+      .class-div-post-item-list {
+        max-height: calc(100% - 250px);
+        overflow-y: auto;
+      }
+      .class-div-post-item-paging .class-div-pre-page, .class-div-post-item-paging .class-div-next-page {
+        width: 20%;
+        height: 100%;
+        display: inline-block;
+        float: left;
+      }
+      .class-div-comment-item-paging .class-div-pre-page, .class-div-comment-item-paging .class-div-next-page {
+        width: 10%;
+        height: 100%;
+        display: inline-block;
+        float: left;
+      }
+      .class-div-comment-item-paging .class-div-comment-delete-all {
+        width: 20%;
+        height: 100%;
+        display: inline-block;
+        float: left;
+        font-size: 24px;
+        text-align: center;
+        line-height: 50px;
+        border-right: solid 1px #ccc;
+        box-sizing: border-box;
+      }
+      .class-div-post-item-paging .class-div-goto-page {
+        width: 60%;
+        height: 100%;
+        display: inline-block;
+        float: left;
+      }
+      .class-div-comment-item-paging .class-div-goto-page {
+        width: 40%;
+        height: 100%;
+        display: inline-block;
+        float: left;
+      }
+      .class-div-comment-item-paging .class-div-down-load-comment {
+        width: 20%;
+        height: 100%;
+        display: inline-block;
+        float: left;
+        font-size: 24px;
+        text-align: center;
+        line-height: 50px;
+        border-right: solid 1px #ccc;
+        box-sizing: border-box;
+      }
+      .class-div-pre-page, .class-div-next-page {
+        text-align: center;
+        line-height: 50px;
+        border-right: solid 1px #ccc;
+        box-sizing: border-box;
+      }
+      .class-div-post-item-paging .class-div-goto-page {
+        font-size: 12px;
+        display: flex;
+        flex-direction: row;
+      }
+      .class-div-post-item-paging .class-div-goto-page span {
+        height: 100%;
+        width: 25%;
+        text-align: center;
+        line-height: 50px;
+      }
+      .class-div-post-item-paging .class-div-goto-page input {
+        height: 100%;
+        width: 20%;
+        border: 0;
+      }
+      .class-div-post-item-paging .class-div-goto-page button {
+        height: 100%;
+        width: 30%;
+        border: 0;
+      }
+
+      .class-div-comment-item-paging .class-div-goto-page {
+        font-size: 12px;
+        display: flex;
+        flex-direction: row;
+      }
+      .class-div-comment-item-paging .class-div-goto-page span {
+        height: 100%;
+        width: 25%;
+        text-align: center;
+        line-height: 50px;
+      }
+      .class-div-comment-item-paging .class-div-goto-page input {
+        height: 100%;
+        width: 20%;
+        border: 0;
+      }
+      .class-div-comment-item-paging .class-div-goto-page button {
+        height: 100%;
+        width: 30%;
+        border: 0;
+      }
+      .class-div-comment-list {
+        max-height: calc(100% - 100px);
+        overflow-y: auto;
+
+      }
+      .cur {
+        background-color: dodgerblue;
+      }
+      table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+      }
+
+      td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+          word-wrap:break-word;
+          word-break:break-all;
+      }
+
+      tr:nth-child(even) {
+          background-color: #dddddd;
+      }
+      .class-div-select-bar {
+        display: flex;
+        width: 100%;
+        height: 50px;
+        align-items: center;
+        justify-content: space-around;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="class-div-main-container">
+      <div class="class-div-left-side">
+        <div class="class-div-post-itme-header">
+          <div class="class-div-header-title">
+            评论管理
+          </div>
+          <div class="class-div-header-search">
+            <input type="text" name="" value="" placeholder="搜索标题列表...">
+            <div class="class-div-search-ok-button">
+              ok
+            </div>
+          </div>
+          <hr>
+          <div class="class-div-post-item post-all">
+            博客所有评论
+          </div>
+        </div>
+        <div class="class-div-post-item-list">
+          <div class="class-div-post-item-paging">
+            <div class="class-div-pre-page">
+              上一页
+            </div>
+            <div class="class-div-next-page">
+              下一页
+            </div>
+            <div class="class-div-goto-page">
+              <span>当前：1页</span>
+              <span>共：11页</span>
+              <input type="text" name="" value="" placeholder="go">
+              <button type="button" name="button">跳转</button>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="class-div-right-side">
+        <div class="class-div-select-bar">
+          <label for="">开始时间</label>
+          <input type="date" name="start" value="">
+          <label for="">结束时间</label>
+          <input type="date" name="end" value="">
+          <button type="button" name="button" class='button-date-search'>查询</button>
+        </div>
+        <div class="class-div-comment-list">
+          <div class="class-div-comment-item-paging">
+            <div class="class-div-comment-delete-all">
+              删除选中评论
+            </div>
+            <div class="class-div-down-load-comment">
+              导出选中评论
+            </div>
+            <div class="class-div-pre-page">
+              上一页
+            </div>
+            <div class="class-div-next-page">
+              下一页
+            </div>
+            <div class="class-div-goto-page">
+              <span>当前：1页</span>
+              <span>共：11页</span>
+              <input type="text" name="" value="" placeholder="go">
+              <button type="button" name="button">跳转</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <script src="jquery.js" charset="utf-8"></script>
+    <script src="/javascripts/api.js" charset="utf-8"></script>
+    <script src="/javascripts/comment_manage.js" charset="utf-8"></script>
+
+    <!-- <input type="date" name="233" value=""> -->
+  </body>
+</html>

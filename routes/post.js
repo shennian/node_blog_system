@@ -167,7 +167,14 @@ router.get('/title/get', function(req, res) {
 
 
 router.get('/all/master', function(req, res, next) {
-  Post.findAllBlog().then(function(posts) {
+  var offset = req.offset || 0
+  var limit = req.limit || 15
+  console.log(offset, limit);
+  var spec = {
+    offset: offset,
+    limit: limit,
+  };
+  Post.findAllBlog(spec).then(function(posts) {
     res.json({data: posts});
   });
 });

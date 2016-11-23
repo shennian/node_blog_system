@@ -145,8 +145,8 @@ var Post = db.define('post', {
         }
       });
     },
-    findAllBlog: function() {
-      return Post.findAll();
+    findAllBlog: function(spec) {
+      return Post.findAll(spec);
     },
   }
 });

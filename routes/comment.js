@@ -43,15 +43,15 @@ router.get('/all', function(req, res, next) {
   });
 }, function(req, res) {
   var post = req._post;
-  post.getComments({limit: 6, order: '"created_time" DESC' }).then(function(comments) {
+  post.getComments({limit: 6, order: '"created_time" DESC', where: {private: false}}).then(function(comments) {
     res.json({data: comments});
   }, function(err) {
     res.json({data: err});
   });
 });
 
-router.get('/delete', function(req, res, next) {
-  var id = req.query.id;
+router.post('/delete', function(req, res, next) {
+  var id = req.body.id;
   Comment.findById(id).then(function(comment) {
     if (comment == null) {
       req._existed = false;
@@ -73,9 +73,32 @@ router.get('/delete', function(req, res, next) {
 });
 
 router.get('/all/master', function(req, res) {
-  Comment.findAll(function (comments) {
+  var post_id = req.query.post_id;
+  var start = req.query.start;
+  var end = req.query.end;
+  var offest = req.query.offset || 0;
+  var limit = req.query.limit || 15;
+  var spec = {
+    offest: offest,
+    limit: limit,
+    where: {},
+  }
+  if (post_id != undefined) {
+    spec.where.post_id = post_id;
+  }
+  if (start != undefined) {
+    spec.where.createdAt = {
+      gte: start,
+    };
+  }
+  if (end != undefined) {
+    spec.where.createdAt = {
+      lte: end,
+    };
+  }
+  console.log(spec);
+  Comment.findAll(spec).then(function (comments) {
     res.json({data: comments});
-  })
-  
+  });
 });
 module.exports = router;
