@@ -3,6 +3,7 @@ var router = express.Router();
 var Post = require('../models/post.js');
 var Comment = require('../models/comment.js');
 var iconv = require('iconv-lite');
+var cookie = require('../utils/cookie.js');
 
 
 router.post('/create', function(req, res, next) {
