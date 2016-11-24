@@ -101,4 +101,9 @@ router.get('/all/master', function(req, res) {
     res.json({data: comments});
   });
 });
+
+router.get('/manage/master', [cookie.get], function(req, res, next) {
+  res.sendfile('public/calender.html')
+});
+
 module.exports = router;

@@ -17,11 +17,8 @@ router.get('/master', [cookie.get], function(req, res) {
   res.render('index_master');
 });
 
-router.get('/test', [ipManage.apiLimit], function(req, res, next) {
-  cache.set('4', '2');
-  console.log(cache.get('1'));
-  //res.render('index', { title: 'post' });
-  res.json({data: 'ues'});
+router.get('/test', function(req, res, next) {
+  res.sendfile('public/calender.html')
 });
 
 router.get('/post', function(req, res, next) {
