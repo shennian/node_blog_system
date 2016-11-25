@@ -15,7 +15,7 @@ var postPaging = function() {
   }
   var getPostItem = function() {
     api({
-      url: 'post/all/master',
+      url: '/post/all/master',
       method: 'get',
       data: {
         offset: offset,
@@ -39,7 +39,7 @@ var renderCommentList = function(data) {
   for (var i = 0; i < comments.length; i++) {
     comment = comments[i];
     var t = `<tr>
-               <td><input type="checkbox" name="" value=""></td>
+               <td><input type="checkbox" name="checkbox" value="" data-id='${comment.id}'></td>
                <td>${comment.createdAt}</td>
                <td>${comment.name}</td>
                <td>${comment.email}</td>
@@ -66,8 +66,7 @@ $('.class-div-post-item-list').on('click', '.class-div-post-item', function() {
   $('.class-div-post-item').removeClass('cur')
   $(this).addClass('cur')
   $('.class-div-comment-list table').remove()
-  var id = $(this).data('id');
-  console.log(id);
+  var id = $(this).data('id')
   api({
     url: '/comment/all/master',
     method: 'get',
@@ -82,8 +81,7 @@ $('.class-div-post-item-list').on('click', '.class-div-post-item', function() {
 $('.class-div-post-itme-header').on('click', '.class-div-post-item', function() {
   $('.class-div-post-item').removeClass('cur')
   $(this).addClass('cur')
-  console.log(2333);
-  $('.class-div-comment-list table').remove();
+  $('.class-div-comment-list table').remove()
   api({
     url: '/comment/all/master',
     method: 'get',
@@ -92,7 +90,6 @@ $('.class-div-post-itme-header').on('click', '.class-div-post-item', function() 
 });
 
 $('.button-date-search').on('click', function() {
-  console.log(233);
   var id = $('.cur').data('id');
   var start = $("input[name='start']").val()
   var end = $("input[name='end']").val()
@@ -135,3 +132,54 @@ $('.class-div-comment-list').on('click', '.delete-comment', function() {
     success: data => {alert(data.data)}
   })
 });
+
+$('.class-div-comment-delete-all').on('click', function() {
+  var comments = $("input[name='checkbox']:checked");
+  for (var i = 0; i < comments.length; i++) {
+    var comment = comments.eq(i)
+    var id = comment.data('id')
+    api({
+      url: '/comment/delete',
+      method: 'post',
+      data: {
+        id: id,
+      },
+      success: data => {alert(data.data)}
+    })
+  }
+});
+
+
+$('.class-div-down-load-comment').on('click', function() {
+  var id = $('.cur').data('id');
+  var data = {}
+  if (id != undefined) {
+    data.post_id = id;
+  }
+  $.ajax({
+    url: '/comment/download',
+    method: 'get',
+    data: data,
+    dataType: 'text',
+    success: function(data) {
+      var data = JSON.parse(data)
+      var csvContent = "";
+      console.log(data);
+      data.forEach(function(infoArray, index){
+         dataString = infoArray.join(",");
+         csvContent += index < data.length ? dataString+ "\n" : dataString;
+      });
+      console.log(csvContent);
+      // var blob = new Blob([data], {type: "text/csv"})
+      a = document.createElement('a')
+      a.style.display = 'none'
+      a.download = 'comments.csv'
+      document.body.appendChild(a)
+      a.href = "data:text/csv;charset=utf-8,\ufeff" +　encodeURIComponent(csvContent)
+      a.click()
+      URL.revokeObjectURL(a.href)
+      a.remove()
+        // $(".class-div-down-load-comment a").click()
+    }
+  })
+})

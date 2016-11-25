@@ -40,14 +40,31 @@ api({
 $('#comment').on('click', function() {
   $('.div-comment').css('display', 'flex')
 });
-$('.div-close').on('click', function() {
+$('.div-comment').on('click', function() {
   $('.div-comment').css('display', 'none')
+  return false;
+});
+$('.div-comment-container').on('click', function() {
+  // $('.div-comment').css('display', 'none')
+  return false;
 });
 $('.ok-button').on('click', function() {
   var post_id = $('#post-id').data('id')
-  var name = $("input[name='name']").val()
-  var email = $("input[name='email']").val()
-  var message = $("textarea").val()
+  var name = $.trim($("input[name='name']").val())
+  var email = $.trim($("input[name='email']").val())
+  var message = $.trim($("textarea").val())
+  if (name == "" || name.includes("script")) {
+    alert("name error");
+    return;
+  }
+  if (email == "" ||　email.includes("script")) {
+    alert("email error");
+    return;
+  }
+  if (message == "" || message.includes("script")) {
+    alert("message error");
+    return;
+  }
   var t = `<div class="item">
                 ${name}: ${message}
               </div>`

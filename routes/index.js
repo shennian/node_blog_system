@@ -56,7 +56,7 @@ router.post('/master/login', function(req, res, next) {
       httpOnly: true, // The cookie only accessible by the web server
       signed: true // Indicates if the cookie should be signed
     }
-    res.cookie('user', 'master', options)
+    res.cookie('user', 'master-sen-1219', options)
     res.json({data: 'success'})
   } else {
     res.json({data: 'error'})

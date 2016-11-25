@@ -31,6 +31,3 @@ $(document).ready(function() {
     window.open(`/post/get?id=${id}`);
   });
 });
-
-
-

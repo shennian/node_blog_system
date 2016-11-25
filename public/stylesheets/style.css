@@ -216,3 +216,18 @@ textarea {
   color: #fff;
 }
 
+.div-comments {
+  right: calc(30% - 80px);
+  top: 80%;
+  position: fixed;
+  height: 40px;
+  width: 40px;
+  color: #ccc;
+  text-align: center;
+  font-size: 38px;
+}
+
+.div-comments:hover {
+  background-color: #ccc;
+  color: #fff;
+}

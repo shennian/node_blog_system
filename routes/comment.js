@@ -4,12 +4,13 @@ var Post = require('../models/post.js');
 var Comment = require('../models/comment.js');
 var iconv = require('iconv-lite');
 var cookie = require('../utils/cookie.js');
+var nodeExcel = require('excel-export');
 
 
 router.post('/create', function(req, res, next) {
-  var name = req.body.name;
-  var email = req.body.email;
-  var message = req.body.message;
+  var name = req.body.name.replace('script', '');
+  var email = req.body.email.replace('script', '');
+  var message = req.body.message.replace('script', '');
   Comment.create({
     name: name,
     email: email,
@@ -97,7 +98,6 @@ router.get('/all/master', function(req, res) {
       lte: end,
     };
   }
-  console.log(spec);
   Comment.findAll(spec).then(function (comments) {
     res.json({data: comments});
   });
@@ -106,5 +106,60 @@ router.get('/all/master', function(req, res) {
 router.get('/manage/master', [cookie.get], function(req, res, next) {
   res.sendfile('public/calender.html')
 });
+
+router.get('/download', function(req, res, next) {
+  var post_id = req.post_id
+  var spec = {}
+  if (post_id != undefined) {
+    spec.where.post_id = post_id
+  }
+  Comment.findAll(spec).then(function (comments) {
+    req._comments = comments
+    next()
+  });
+}, function(req, res, next) {
+  var conf = {}
+  // conf.stylesXmlFile = "styles.xml"
+  conf.cols = [{
+    caption:'时间',
+		type:'date',
+  }, {
+    caption:'姓名',
+		type:'text',
+  }, {
+    caption:'邮箱',
+    type:'string',
+  }, {
+    caption:'评论',
+    type:'text',
+  }]
+  conf.rows = [['时间','姓名','邮箱','评论']]
+  var comments = req._comments
+  var keys = ['createdAt', 'name', 'email', 'message']
+  for (var i = 0; i < comments.length; i++) {
+    var comment = comments[i]
+    var t = []
+    for (var j = 0; j < keys.length; j++) {
+      var key = keys[j]
+      if (key == 'message') {
+        t.push(comment[key].replace(/(\n)+|(\r\n)+/g, ""))
+      } else {
+        t.push(comment[key])
+      }
+    }
+    conf.rows.push(t)
+  }
+  // var result = nodeExcel.execute(conf);
+  // console.log(result);
+  // res.setHeader('Content-Type', 'application/csv');
+  // res.setHeader("Content-Disposition", "attachment; filename=" + "comments.csv");
+  // res.end(result, 'binary');
+  console.log(conf.rows);
+  res.send(conf.rows);
+});
+
+
+
+
 
 module.exports = router;
