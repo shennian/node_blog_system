@@ -21,11 +21,11 @@ router.get('/test', function(req, res, next) {
   res.sendfile('public/calender.html')
 });
 
-router.get('/post', function(req, res, next) {
-
-  Post.create({title: "23333333333333333333333"});
-  res.render('index', { title: 'post' });
-});
+// router.get('/post', function(req, res, next) {
+//
+//   Post.create({title: "23333333333333333333333"});
+//   res.render('index', { title: 'post' });
+// });
 
 router.get('/test-redirect', function(req, res, next) {
   res.set('Access-Control-Allow-Origin', 'https://www.baidu.com')
