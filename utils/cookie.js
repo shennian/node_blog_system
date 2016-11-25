@@ -10,7 +10,7 @@ var setCookie = function(req, res, next) {
 
 var getCookie = function(req, res, next) {
   var cookie = req.signedCookies.user;
-  if (cookie != 'master') {
+  if (cookie != 'master-sen-1219') {
     res.json({data: 'miss cookie'})
   } else {
     next();
