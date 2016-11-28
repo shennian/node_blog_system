@@ -78,6 +78,26 @@ function publish() {
     }
   });
 }
+
+function sendEamil() {
+  var title = $('#title').val();
+  var id = $('body').data('post-id')
+  var postData = {
+    url: location.origin +　'/post/get?id='+ id,
+    title: title,
+  }
+  $.ajax({
+    url: '/email/send/all',
+    method: 'post',
+    data: postData,
+    success: function(data) {
+      console.log(data);
+    },
+    error: function(err) {
+      console.log(err);
+    }
+  });
+}
 setInterval(autoSave, 2000);
 
 $('#save').on('click', function() {
@@ -86,4 +106,5 @@ $('#save').on('click', function() {
 
 $('#publish').on('click', function() {
   publish();
+  sendEamil();
 });

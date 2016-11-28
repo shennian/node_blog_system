@@ -6,7 +6,7 @@ var cookie = require('../utils/cookie.js');
 
 router.post('/create', function(req, res, next) {
   var address = req.body.address;
-  //var username = req.body.username;
+  // var username = req.body.username;
   Eamil.findByAddress(address).then(function(email) {
     if (email == null) {
       req._existed = false;
@@ -59,6 +59,7 @@ router.get('/delete/master', [cookie.get], function(req, res) {
 router.post('/send/all', [cookie.get], function(req, res) {
   var url = req.body.url;
   var title = req.body.title;
+  console.log(url, title);
   Eamil.findAll().then(function(emails) {
     for (var i = 0; i < emails.length; i++) {
       var email = emails[i];

@@ -68,7 +68,7 @@ router.get('/master/login', function(req, res) {
 });
 
 router.get('/subscribe', function(req, res) {
-  res.render('login');
+  res.render('subscribe');
 });
 
 router.get('/master/reset', [cookie.get], function(req, res, next) {
