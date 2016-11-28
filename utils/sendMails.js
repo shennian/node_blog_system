@@ -7,7 +7,7 @@ var Eamil = require('../models/email.js');
 var transporter = nodemailer.createTransport(
     smtpTransport({
       host: 'smtp-mail.outlook.com',
-      port: 25,
+      port: 587,
       auth: {
         user: 'ashen19@hotmail.com',
         pass: 'hotmail112233'
