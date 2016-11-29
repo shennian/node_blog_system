@@ -4,12 +4,16 @@ var Post = require('../models/post.js');
 var cache = require('../cache/mini.js');
 var ipManage = require('../utils/ip_manage.js');
 var cookie = require('../utils/cookie.js');
+var pv = require('../utils/pv_manage.js');
+var uv = require('../utils/uv_manage.js');
+var pvData = require('../models/pv.js');
+var uvData = require('../models/uv.js');
 var ua = require('../utils/user_agent.js');
 var Admin = require('../models/admin.js');
 
 cache.new();
 /* GET home page. */
-router.get('/', [ua.mobile], function(req, res) {
+router.get('/', [pv.pvManage, ua.mobile], function(req, res) {
   res.render('index');
 });
 
@@ -86,6 +90,26 @@ router.get('/master/reset', [cookie.get], function(req, res, next) {
     admin.resetPassworld(password);
     res.json({data: 'yes'})
   }
+});
+
+router.get('/pv/current', function(req, res) {
+  res.json({data: pv.pvCurrent()});
+});
+
+router.get('/pv/lastday', function(req, res) {
+  pvData.lastDay().then(function(data) {
+      res.json({data: data});
+  });
+});
+
+router.get('/uv/current', function(req, res) {
+  res.json({data: uv.uvCurrent()});
+});
+
+router.get('/uv/lastday', function(req, res) {
+  uvData.lastDay().then(function(data) {
+      res.json({data: data});
+  });
 });
 
 

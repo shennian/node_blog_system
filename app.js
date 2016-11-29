@@ -10,6 +10,9 @@ var users = require('./routes/users');
 var posts = require('./routes/post');
 var comments = require('./routes/comment');
 var emails = require('./routes/email');
+var pv = require('./utils/pv_manage.js');
+var uv = require('./utils/uv_manage.js');
+
 
 var app = express();
 
@@ -30,6 +33,8 @@ app.use('/users', users);
 app.use('/post', posts);
 app.use('/comment', comments);
 app.use('/email', emails);
+pv.pvSchedule()
+uv.uvSchedule()
 
 
 // catch 404 and forward to error handler

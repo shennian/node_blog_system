@@ -1,7 +1,7 @@
 var pvCache = require('../cache/pv.js');
 var pvData = require('../models/pv.js');
 var schedule = require('node-schedule');
-var sendEmail = require('sendEmail.js');
+// var sendEmail = require('sendEmail.js');
 
 pvCache.new('pv', 0);
 
@@ -12,20 +12,30 @@ var pvManage = function(req, res, next) {
   next();
 };
 
-// 定时任务，每天 4 点把 cache 的数据写入数据库 ...
-var rule = new schedule.RecurrenceRule();
-rule.hour = 4;
-rule.minute = 0;
+var pvSchedule = function() {
+  // 定时任务，每天 4 点把 cache 的数据写入数据库 ...
+  var rule = new schedule.RecurrenceRule();
+  rule.hour = new schedule.Range(0, 23, 1);
+  // rule.minute = new schedule.Range(0, 59, 10);
 
-schedule.scheduleJob(rule, function() {
-  var n = pvCache.get('pv');
-  pvData.create({
-    count: n
-  }).then(function() {
-    pvCache.set('pv', 0);
-  }).catch(function () {
-    sendEmail('ashen19@hotmail.com', {info: '写入pv失败'})
+  schedule.scheduleJob(rule, function() {
+    var n = pvCache.get('pv');
+    pvData.create({
+      count: n
+    }).then(function() {
+      pvCache.set('pv', 0);
+    }).catch(function () {
+      console.log("写入pv失败");
+    });
   });
-});
+};
 
-module.exports = pvManage;
+var pvCurrent = function() {
+  return pvCache.get('pv');
+}
+
+module.exports = {
+  pvManage: pvManage,
+  pvSchedule: pvSchedule,
+  pvCurrent: pvCurrent,
+};
