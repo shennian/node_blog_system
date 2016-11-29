@@ -4,3 +4,4 @@ sql*
 npm*
 test.js
 /post/*
+*.pyc
