@@ -15,8 +15,8 @@ var pvManage = function(req, res, next) {
 var pvSchedule = function() {
   // 定时任务，每天 4 点把 cache 的数据写入数据库 ...
   var rule = new schedule.RecurrenceRule();
-  rule.hour = new schedule.Range(0, 23, 1);
-  // rule.minute = new schedule.Range(0, 59, 10);
+  // rule.hour = new schedule.Range(0, 23, 1);
+  rule.minute = 0
 
   schedule.scheduleJob(rule, function() {
     var n = pvCache.get('pv');

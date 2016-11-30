@@ -13,7 +13,7 @@ var Admin = require('../models/admin.js');
 
 cache.new();
 /* GET home page. */
-router.get('/', [pv.pvManage, ua.mobile], function(req, res) {
+router.get('/', [pv.pvManage, uv.uvManage, ua.mobile], function(req, res) {
   res.render('index');
 });
 
@@ -21,8 +21,8 @@ router.get('/master', [cookie.get], function(req, res) {
   res.render('index_master');
 });
 
-router.get('/test', function(req, res, next) {
-  res.sendfile('public/calender.html')
+router.get('/data', [cookie.get], function(req, res, next) {
+  res.sendfile('public/data.html')
 });
 
 // router.get('/post', function(req, res, next) {
@@ -98,7 +98,14 @@ router.get('/pv/current', function(req, res) {
 
 router.get('/pv/lastday', function(req, res) {
   pvData.lastDay().then(function(data) {
-      res.json({data: data});
+    // console.log(data);
+    var r = 'Day,Visits\n'
+    for (var i = 0; i < data.length; i++) {
+      var d = data[i]
+      var s = `${d.createdAt},${d.count}\n`
+      r += s
+    }
+    res.send(r);
   });
 });
 
@@ -108,7 +115,13 @@ router.get('/uv/current', function(req, res) {
 
 router.get('/uv/lastday', function(req, res) {
   uvData.lastDay().then(function(data) {
-      res.json({data: data});
+    var r = 'Day,Unique Visits\n'
+    for (var i = 0; i < data.length; i++) {
+      var d = data[i]
+      var s = `${d.createdAt},${d.count}\n`
+      r += s
+    }
+    res.send(r);
   });
 });
 
