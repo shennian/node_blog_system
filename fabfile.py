@@ -26,6 +26,3 @@ def test():
         run('git checkout test')
         run('git merge master')
         run('env -i PORT=3100 node bin/www')
-
-# 部署 fab deploy
-# 测试 fab test

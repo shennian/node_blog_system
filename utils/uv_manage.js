@@ -7,6 +7,7 @@ uvCache.new('uv', 0);
 
 var uvManage = function(req, res, next) {
   var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+  console.log(ip);
   if (uvCache.get(ip) == undefined) {
     uvCache.set(ip, true);
     var n = uvCache.get('uv');
