@@ -3,6 +3,9 @@ var router = express.Router();
 var Post = require('../models/post.js');
 var iconv = require('iconv-lite');
 var ip = require('../utils/ip_manage.js');
+var uv = require('../utils/uv_manage.js');
+var pv = require('../utils/pv_manage.js');
+var ua = require('../utils/user_agent.js');
 var cookie = require('../utils/cookie.js');
 
 
@@ -112,7 +115,7 @@ router.post('/publish/master', [cookie.get], function(req, res, next) {
 });
 
 
-router.get('/get', function(req, res, next) {
+router.get('/get', [pv.pvManage, uv.uvManage, ua.mobile], function(req, res, next) {
   // 这里是如果数据没有找到，直接返回，第二个函数会短一些。
   var id = req.query.id;
   Post.findById(id).then(function(post) {

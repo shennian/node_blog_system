@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      body, html {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .class-div-main-cantainer {
+        height: 80%;
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+      }
+      .class-div-nav-bar {
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+
+      }
+      .class-div-nav-item {
+        width: 20%;
+        height: 100%;
+        border: solid 2px #ccc;
+        border-bottom: none;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        background-color: #ccc;
+        /*box-sizing: content-box;*/
+      }
+      .class-div-nav-item-i {
+        width: 60%;
+        height: 100%;
+        border-bottom: solid 2px #ccc;
+      }
+      .class-div-canvas-container {
+        flex: 9;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border: solid 2px #ccc;
+        border-top: none;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+      }
+      .cur {
+        background-color: white;
+      }
+      #id-canvas {
+        height: 60%;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="class-div-main-cantainer">
+      <div class="class-div-nav-bar">
+        <div class="class-div-nav-item cur pv">
+
+        </div>
+        <div class="class-div-nav-item uv">
+
+        </div>
+        <div class="class-div-nav-item-i">
+
+        </div>
+      </div>
+      <div class="class-div-canvas-container">
+        <div id="container" style="width:100%; height: 60%; margin: 0 auto">
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="jquery.js"></script>
+  <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+  <script src="http://cdn.hcharts.cn/highcharts/modules/data.js"></script>
+  <!-- <script type="text/javascript">
+    var canvas=document.querySelector('#id-canvas');
+    var ctx = canvas.getContext('2d');
+    var raf;
+
+    var nums = [10, 23, -9, 3, 0, 32, 8, 3, 5, 5, 21, 9,]
+    var getRange = list => {
+      _list = list.slice(0)
+      _list.sort((u, v) => u - v)
+
+      return {
+        min: _list[0],
+        max: _list.pop(),
+      }
+    }
+    window.addEventListener("resize", drawMainWindow, false);
+
+    function resizeCanvas() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+    }
+
+    var drawMainWindow = () => {
+      resizeCanvas()
+      drawKeDu()
+      drawLines(nums)
+    }
+    var drawKeDu = function() {
+      var width = canvas.width
+      var height = canvas.height
+      var heightDelta = height / 6 // 魔法数字
+      console.log(width, height, heightDelta, canvas.style.height);
+      ctx.beginPath();
+      for (var i = 1; i <= 5; i++) {
+        console.log(heightDelta * i);
+        ctx.moveTo(0, heightDelta * i)
+        ctx.lineTo(width, heightDelta * i)
+      }
+      ctx.strokeStyle = '#ccc'
+      ctx.lineWidth = 2
+      ctx.stroke();
+    }
+    var drawLines = function(nums) {
+      console.log(nums);
+      var range = getRange(nums)
+      var delta = (range.max - range.min) / 6
+      var min = range.min - delta / 2
+      var max = range.max + delta / 2
+      var width = canvas.width
+      var height = canvas.height
+      console.log(range);
+      console.log(height, max, min, "fdfdsfdsfd");
+      var f = function(x) {
+        var k = height / (max - min)
+        var m = -min * k
+        // console.log(k, x, m);
+        return height - (k * x + m)
+      }
+      ctx.beginPath();
+      var i = 0
+      var x = nums[i]
+      var y = f(x)
+
+      var deltaX = width / nums.length
+      ctx.moveTo(deltaX / 2, y)
+      // drawDot(deltaX / 2, y)
+      console.log(deltaX / 2, y);
+      for (var i = 1; i < nums.length; i++) {
+        var x = nums[i]
+        var y = f(x)
+        ctx.lineTo(i * deltaX + deltaX / 2, y)
+        // drawDot(i * deltaX + deltaX / 2, y)
+        console.log(i * deltaX + deltaX / 2, y);
+      }
+      ctx.strokeStyle = 'red'
+      ctx.lineWidth = 6
+      ctx.stroke();
+
+      // ctx.beginPath();
+      var i = 0
+      var x = nums[i]
+      var y = f(x)
+      var deltaX = width / nums.length
+      drawDot(deltaX / 2, y)
+      ctx.font = "50px Courier New";
+      //设置字体填充颜色
+      ctx.fillStyle = "blue";
+      //从坐标点(50,50)开始绘制文字
+      ctx.fillText(x, i * deltaX + deltaX / 2, y);
+      console.log(i * deltaX + deltaX / 2, y);
+      for (var i = 1; i < nums.length; i++) {
+        var x = nums[i]
+        var y = f(x)
+        drawDot(i * deltaX + deltaX / 2, y)
+        // ctx.font = "50px Courier New";
+        //设置字体填充颜色
+        ctx.fillStyle = "blue";
+        //从坐标点(50,50)开始绘制文字
+        ctx.fillText(x, i * deltaX + deltaX / 2, y);
+        console.log(i * deltaX + deltaX / 2, y);
+      }
+      // ctx.strokeStyle = 'red'
+      // ctx.lineWidth = 10
+      // ctx.stroke();
+    }
+    function getEventPosition(ev){
+      var x, y;
+      if (ev.layerX || ev.layerX == 0) {
+        x = ev.layerX;
+        y = ev.layerY;
+      } else if (ev.offsetX || ev.offsetX == 0) { // Opera
+        x = ev.offsetX;
+        y = ev.offsetY;
+      }
+      console.log(x, y);
+      return {x: x, y: y};
+    }
+    var drawDot = function(x, y) {
+      // ctx.strokeStyle = "blue";
+      // var ctx = canvas.getContext('2d');
+      ctx.beginPath();
+      var circle = {
+        x : x,    //圆心的x轴坐标值
+        y : y,    //圆心的y轴坐标值
+        r : 20      //圆的半径
+      };
+      ctx.arc(circle.x, circle.y, circle.r, 0, 2 * Math.PI, false);
+      ctx.fillStyle="red";//填充颜色,默认是黑色
+      ctx.fill();//画实心圆
+
+
+      canvas.addEventListener('click', function(e) {
+        p = getEventPosition(e);
+        console.log(ctx.isPointInStroke(p.x, p.y));
+        if(ctx.isPointInPath(p.x, p.y)){
+          //点击了矩形
+          console.log(ctx);
+        }
+        return false;
+      }, false);
+      ctx.closePath();
+
+    }
+    // ball.draw();
+    drawMainWindow()
+  </script> -->
+  <script type="text/javascript">
+    var drawLines = function(url) {
+      $(function () {
+
+          // Get the CSV and create the chart
+          $('#container').children().remove()
+          $.get(url, function (csv) {
+              Highcharts.chart('container', {
+
+                  data: {
+                    csv: csv
+                  },
+
+                  title: {
+                      text: '博客数据统计'
+                  },
+
+                  subtitle: {
+                      text: ''
+                  },
+
+                  xAxis: {
+                      tickInterval: 7 * 24 * 3600 * 1000, // one week
+                      tickWidth: 0,
+                      gridLineWidth: 1,
+                      labels: {
+                          align: 'left',
+                          x: 3,
+                          y: -3
+                      }
+                  },
+
+                  yAxis: [{ // left y axis
+                      title: {
+                          text: null
+                      },
+                      labels: {
+                          align: 'left',
+                          x: 3,
+                          y: 16,
+                          format: '{value:.,0f}'
+                      },
+                      showFirstLabel: false
+                  }, { // right y axis
+                      linkedTo: 0,
+                      gridLineWidth: 0,
+                      opposite: true,
+                      title: {
+                          text: null
+                      },
+                      labels: {
+                          align: 'right',
+                          x: -3,
+                          y: 16,
+                          format: '{value:.,0f}'
+                      },
+                      showFirstLabel: false
+                  }],
+
+                  legend: {
+                      align: 'left',
+                      verticalAlign: 'top',
+                      y: 20,
+                      floating: true,
+                      borderWidth: 0
+                  },
+
+                  tooltip: {
+                      shared: true,
+                      crosshairs: true
+                  },
+
+                  plotOptions: {
+                      series: {
+                          cursor: 'pointer',
+                          point: {
+                              events: {
+                              }
+                          },
+                          marker: {
+                              lineWidth: 1
+                          }
+                      }
+                  },
+
+                  series: [{
+                      name: 'All visits',
+                      lineWidth: 4,
+                      marker: {
+                          radius: 4
+                      }
+                  }]
+              });
+          });
+
+      });
+    }
+    drawLines('/pv/lastday')
+    $('.pv').on('click', function() {
+      $('.class-div-nav-item').removeClass("cur")
+      $(this).addClass("cur")
+      drawLines('/pv/lastday')
+    })
+    $('.uv').on('click', function() {
+      $('.class-div-nav-item').removeClass("cur")
+      $(this).addClass("cur")
+      drawLines('/uv/lastday')
+    })
+  </script>
+</html>

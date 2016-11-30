@@ -3,10 +3,11 @@ var mini = (function() {
   var store;
   var keys = [];
   return {
-    new: function() {
+    new: function(k, v) {
       if (init == undefined) {
         store = new Map();
         init = true;
+        this.set(k, v);
       }
     },
     get: function(k) {
