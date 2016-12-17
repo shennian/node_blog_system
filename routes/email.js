@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Eamil = require('../models/email.js');
-var sendEamil = require('../utils/sendMails.js');
+// var sendEamil = require('../utils/sendMails.js');
 var cookie = require('../utils/cookie.js');
 
 router.post('/create', function(req, res, next) {
@@ -69,7 +69,7 @@ router.post('/send/all', [cookie.get], function(req, res) {
         title: title,
         del_url: '/email/delete?address=' + email.address,
       }
-      sendEamil(email.address, info);
+      // sendEamil(email.address, info);
     }
   });
   res.json({data: '正在发送'})
@@ -86,7 +86,7 @@ router.post('/send', [cookie.get], function(req, res) {
       title: title,
       del_url: '/email/delete?address=' + email.address,
     }
-    sendEamil(email.address, info);
+    // sendEamil(email.address, info);
   });
   res.json({data: '正在发送'})
 });
