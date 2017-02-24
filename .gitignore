@@ -5,3 +5,4 @@ npm*
 test.js
 /post/*
 *.pyc
+migrate.py

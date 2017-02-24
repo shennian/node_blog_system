@@ -14,4 +14,10 @@ var db = new Sequelize('database', 'username', 'password', {
   storage: sqlitePath
 });
 
+var initSqlite = function() {
+
+}
+
+// var initMysql
+
 module.exports = db;
